@@ -1,75 +1,56 @@
+//Массив, псевдомассив
+
 "use strict";
 
-//const obj = new Object(); //один из вариантов создания обьектов
+const arr = [1,2,5,8,9];
 
-//самый частый вариант создания обьекта
-const option = {
-    name: 'test',
-    width: '640',
-    height: '480',
-    colors: {
-        border: 'black',
-        bg: 'red'
-    }
-};
+console.log(arr);
 
-console.log(option.name);
-console.log(option['name']); // реже исп. вариант нотации
+//удалить последний элемент из массива
+arr.pop();
+console.log(arr);
 
-//delete option.name; //удаление какого-либо свойства из обьекта
+arr.push(10); //добавить элемент в конце массива
+console.log(arr);
 
-console.log(option);
-
-//перебрать все элементы обьекта
-for (let key in option){
-    console.log(`Свойство ${key} имеет значение ${option[key]}`);
+//перебрать элементы
+for (let i = o; i < arr.length; i++){
+    console.log(arr[i]);
 }
 
-//перебрать все элементы обьекта
-let counter = 0;
-for (let key in option){
-    if (typeof(option[key]) === 'object') {
-        for (let i in option[key]){
-            console.log(`Свойство ${i} имеет значение ${option[key][i]}`);
-            counter++;
-        }
-
-    } else {
-        console.log(`Свойство ${key} имеет значение ${option[key]}`);
-        counter++;
-    }
+for (let value of arr){  //не работает с обьектом
+    console.log(value);
 }
-//количество свойств обьекта
-console.log(counter);
 
-console.log(Object.keys(option));
-console.log(Object.keys(option).length);
+//длина массива не всегда длина) последний индекс, +1
+const arr2 = [1,2,5,8,9];
+//arr2[99] = 0; // так нельзя
+console.log(arr.length);
+console.log(arr2);
 
-//Добавим поведение для обьекта
-const option2 = {
-    name: 'test',
-    width: '640',
-    height: '480',
-    colors: {
-        border: 'black',
-        bg: 'red'
-    },
-    makeTest: function(){
-        console.log("Yes!");
-    }
-};
+//методы массив
+//часто исп. для перебора. Недостаток в отличии от обычных циклов - нельзя остановить
+arr2.forEach(function(item, i, arr2){
+    console.log(`${i}: ${item} внутри массива ${arr2}` );
+});
 
-option2.makeTest();
+//сроку в массив. Например большой список товаров через запятую - в массив
+const str = prompt("","");
+const products = str.split(",");
+console.log(products);
+products.sort(); //всегда сортирует как строки
+console.log(products);
+//обратная операция
+console.log(products.join("; "));
 
-//деструктуризация обьекта (вытаскиваем нужные нам свойства)
-const {border, bg} = option2.colors;
-console.log(border);
+//функции для сортировки чисел. Передаеться в call-back
+//описание 
+products.sort(compareNum);
+function compareNum(a,b) {
+    return a-b;
+}
+console.log(products);
 
-/*Задание
-Создайте обьекта game
-в нем 7 свойства
-и для одного из свойств = - сделайте свойство в виде объекта, состоящего из 3 свойств
-Добавьте два метода и вывозите их.
-С помощью деструктуризации выведете 2 любых свойства в консоль
-*/
+//методы не работают для псевдомассив
+
 
