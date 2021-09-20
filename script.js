@@ -1,79 +1,75 @@
-//"use strict"
+"use strict";
 
-//const typeGoods = 'food';
+//const obj = new Object(); //один из вариантов создания обьектов
 
-//console.log('https://market.com/' + typeGoods);
+//самый частый вариант создания обьекта
+const option = {
+    name: 'test',
+    width: '640',
+    height: '480',
+    colors: {
+        border: 'black',
+        bg: 'red'
+    }
+};
 
-//console.log('https://market.com/${typeGoods}');
+console.log(option.name);
+console.log(option['name']); // реже исп. вариант нотации
 
-//console.log(`https://market.com/${typeGoods}`);
+//delete option.name; //удаление какого-либо свойства из обьекта
 
+console.log(option);
 
-//const games = 'game';
+//перебрать все элементы обьекта
+for (let key in option){
+    console.log(`Свойство ${key} имеет значение ${option[key]}`);
+}
 
-//const type = 'type';
+//перебрать все элементы обьекта
+let counter = 0;
+for (let key in option){
+    if (typeof(option[key]) === 'object') {
+        for (let i in option[key]){
+            console.log(`Свойство ${i} имеет значение ${option[key][i]}`);
+            counter++;
+        }
 
-//console.log(`https://market.com/${games}`);
+    } else {
+        console.log(`Свойство ${key} имеет значение ${option[key]}`);
+        counter++;
+    }
+}
+//количество свойств обьекта
+console.log(counter);
 
-//console.log(`https://market.com/${games}/${type}`);
+console.log(Object.keys(option));
+console.log(Object.keys(option).length);
 
+//Добавим поведение для обьекта
+const option2 = {
+    name: 'test',
+    width: '640',
+    height: '480',
+    colors: {
+        border: 'black',
+        bg: 'red'
+    },
+    makeTest: function(){
+        console.log("Yes!");
+    }
+};
 
-//"use strict";
+option2.makeTest();
 
-//let number = 10;
+//деструктуризация обьекта (вытаскиваем нужные нам свойства)
+const {border, bg} = option2.colors;
+console.log(border);
 
-//function showMessage(text) {
-    //console.log(text);
-    ////let number = 20;
-    //console.log(number)
-//}
+/*Задание
+Создайте обьекта game
+в нем 7 свойства
+и для одного из свойств = - сделайте свойство в виде объекта, состоящего из 3 свойств
+Добавьте два метода и вывозите их.
+С помощью деструктуризации выведете 2 любых свойства в консоль
+*/
 
-//showMessage("Hello!!!");
-//console.log(number);
-
-//const server = function() {
-    //console.log('server start...');
-//}
-
-//server();
-
-//const calc = (x, y) => x+y;
-//// const calc = (x, y) => {
-////      return x+y    
-////};
-
-////const calc = x => x+10;
-
-//console.log(calc(10,5));
-
-
-// "use strick";
-
-// function server(){
-//     setTimeout(function(){
-//         console.log(1);
-//     },1000)
-// }
-
-// function foo() {
-//             console.log(2);
-//     }
-// server();
-// foo();
-
-// function serverNew(host, callback){
-//     console.log('Server ${host} is starting...');
-//     callback();
-// }
-
-// // serverNew('Myserver', function(){
-// //      console.log('connect success!');
-// // })
-
-// function done() {
-//     console.log('connect success!');
-// }
-
-// serverNew('MyServer', done)
-
-//j
