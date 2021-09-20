@@ -1,23 +1,24 @@
-//Rest оператор и значение по умолчанию
+//json и глубокое клонирование обьектов
 
 "use strict";
 
-//rest оператор, обратное преобразование spread
-const log = function (a, b, ...other){
-    console.log(a);
-    console.log(b);
-    console.log(other);
-};
-
-log('test1', 'test2', 'test3', 'test4');
-
-//параметры по умолчанию
-function calcOrDouble (first, second = 2){
-    //second = second || 2; // раньше использовали такой способ
-    return first*second;
+const person = {
+    name: 'Alex',
+    age: 28
 }
 
-console.log(calcOrDouble(5));
+//такой формат мы уже можем отправлятьна сервер
+let toServer = JSON.stringify(person);
 
+console.log(toServer);
+
+let fromServer = JSON.parse(toServer);
+console.log(fromServer);
+
+//глубокое клонирование обьекта
+const clone = JSON.parse(JSON.stringify(person));
+clone.name = 'Ann';
+console.log(person);
+console.log(clone);
 
 
