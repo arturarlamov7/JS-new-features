@@ -1,56 +1,68 @@
-//Массив, псевдомассив
+// Передача по ссылке или по значению spread оператор
 
 "use strict";
 
-const arr = [1,2,5,8,9];
+//передача по значению (примитивные типы данных)
+let a = 5,
+    b = a,
 
-console.log(arr);
+b = b + 5;
 
-//удалить последний элемент из массива
-arr.pop();
-console.log(arr);
+console.log(b);
+console.log(a);
 
-arr.push(10); //добавить элемент в конце массива
-console.log(arr);
-
-//перебрать элементы
-for (let i = o; i < arr.length; i++){
-    console.log(arr[i]);
+//передача по ссылке
+const obj = {
+    a: 5,
+    b: 1
 }
 
-for (let value of arr){  //не работает с обьектом
-    console.log(value);
+const copy = obj;
+
+//хотя мы модифицируем копию, менется изначальный обьект,
+//так как мы в копии имеет ссыку на него 
+copy.a = 10;
+
+console.log(obj);
+console.log(copy);
+
+//клонирование обьекта в новый обьект
+const newObj = Object.assign({}, obj);
+newObj.a = 15;
+console.log(newObj);
+
+//Склонироватьь массив
+const oldArray[0] = 5; 
+console.log(oldArray);
+console.log(newArray);
+
+//Spread оператор, new features
+const video = ['youtube', 'vimeo', 'facebook'],
+        blogs = ['wordpress', 'twitter', 'blogger'],
+        internet = [...video,...blogs, 'vk', 'instagram'];
+
+console.log(internet);
+
+function log(a, b, c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
 }
 
-//длина массива не всегда длина) последний индекс, +1
-const arr2 = [1,2,5,8,9];
-//arr2[99] = 0; // так нельзя
-console.log(arr.length);
-console.log(arr2);
+const num = [2, 5, 8];
 
-//методы массив
-//часто исп. для перебора. Недостаток в отличии от обычных циклов - нельзя остановить
-arr2.forEach(function(item, i, arr2){
-    console.log(`${i}: ${item} внутри массива ${arr2}` );
-});
+log(...num);
 
-//сроку в массив. Например большой список товаров через запятую - в массив
-const str = prompt("","");
-const products = str.split(",");
-console.log(products);
-products.sort(); //всегда сортирует как строки
-console.log(products);
-//обратная операция
-console.log(products.join("; "));
+//клонирование массива с помощью spread
+const ar = [4,3,0];
+const NewAr = [...ar];
 
-//функции для сортировки чисел. Передаеться в call-back
-//описание 
-products.sort(compareNum);
-function compareNum(a,b) {
-    return a-b;
-}
-console.log(products);
+//клонирование обьекта с помощью spread 
+const aaa = {
+    first: 1,
+    second: 2
+};
 
-//методы не работают для псевдомассив
+const newA = {...aaa};
 
 
