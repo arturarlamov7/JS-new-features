@@ -1,123 +1,29 @@
-//Геттеры, сеттеры, инкапсуляция
+//Самовызывающиеся функция. Приемы, используемые в модулях
 
 "use strict";
 
-const person = {
-    name: "John",
-    age: 28,
+const num = 1;
 
-    get userAge(){
-        return this.age;
-    },
-    set userAge(num){
-        this.age = num;
-    }
-};
+//анонимная самовызывающаяся функция (создаем локальную область видимости)
+(function(){
+    let num = 2;
+    console.log(num);
+    console.log(num + 1);
 
-//свойства! Поэтому обращамся без скобки, именно так к свойства, а не к методу
-console.log(person.userAge);
-console.log(person.userAge = 30);
-console.log(person.userAge);
+}());
 
-//инкапсуляция
+console.log(num);
 
-function User (name, age){
-    this.name = name;
-    this.age = age;
-
-    this.say = function(){
-        console.log(`Имя пользователя: ${this.name}, возраст ${this.age}`);
-    };
-}
-
-const john = new User('John', 22);
-john.age = 30;
-console.log(john.name);
-console.log(john.age);
-john.say();
-
-//с инкапсуляцией
-
-function User2 (name, age){
-    this.name = name;
-    let userAge = age;
-
-    this.say = function(){
-        console.log(`Имя пользователя: ${this.name}, возврат ${userAge}`);
-    };
-} 
-
-const ann = new User2('Ann', 22);
-
-//john2.age = 30; //возможно прямое обращение к свойству
-console.log(ann.name);
-console.log(ann.userAge); //уже не можем обтатиться к свойству
-ann.say();
-
-///////////////////////////////////////////
-
-function User3 (name, age){
-    this.name = name;
-    let userAge = age;
-
-    this.say = function(){
-        console.log(`Имя пользователя: ${this.name}, возраст ${userAge}`);
+//обьектный интерфейс (второй способ модульности)
+const user = (function(){
+    const privat = function(){
+        console.log('I am privat');
     };
 
-    this.getAge = function(){
-        return userAge;
+    return {
+        sayHello: privat //экспортируем наружу локальное свойство
     }
-    this.setAge = function(age){
-        if(typeof age === 'number' && age > 0 && age <100){
-            userAge = age;
-        }else{
-            console.log('недопустимое значение!')
-        }
-    }
-}
+}());
 
-const kirill = new User3('Kirill', 25);
+user.sayHello();
 
-//kirill.age = 30; //возможно прямое обращение к свойству
-console.log(kirill.name);
-console.log(kirill.userAge);
-console.log(kirill.getAge());
-kirill.setAge(33);
-kirill.setAge(333);
-kirill.setAge('fwefwe');
-kirill.say();
-
-///////////////////////
-// инкапсуляция . класс
-
-class Author {
-    constructor(name, age){
-        this.name = name;
-        this._age = age; //инкапсуляция поля в классе (договоренность)
-    }
-
-    #surname = 'Maal'; //приватное поле
-
-    say = () => {
-        console.log(`Имя пользователя: ${this.name}, ${this.#surname} возврат ${this._age}`);
-    }
-
-    get age(){
-        return this._age;
-    }
-    set age(age){
-        if(typeof age === 'number' && age > 0 && age < 100){
-            this._age = age;
-        }else {
-            console.log('Недопустимое значение!')
-        }
-    }
-}
-
-const ivan = new Author('Ivan', 25);
-
-console.log(ivan.name);
-ivan.age = 99;
-console.log(ivan.age);
-
-ivan.say();
