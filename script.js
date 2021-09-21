@@ -1,19 +1,123 @@
-//Fetch API
+//Геттеры, сеттеры, инкапсуляция
 
+"use strict";
 
+const person = {
+    name: "John",
+    age: 28,
 
-fetch('https://jsonplaceholder.typicode.com/todos/1')
-  .then(response => response.json())
-  .then(json => console.log(json));
+    get userAge(){
+        return this.age;
+    },
+    set userAge(num){
+        this.age = num;
+    }
+};
 
+//свойства! Поэтому обращамся без скобки, именно так к свойства, а не к методу
+console.log(person.userAge);
+console.log(person.userAge = 30);
+console.log(person.userAge);
 
-  fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: "POST",
-      body: JSON.stringify({name: "Alex"}),
-      headers: {
-          'Content-type': 'application/json'
-      }
-  })
-  .then(response => response.json())
-  .then(json => console.log(json));
+//инкапсуляция
 
+function User (name, age){
+    this.name = name;
+    this.age = age;
+
+    this.say = function(){
+        console.log(`Имя пользователя: ${this.name}, возраст ${this.age}`);
+    };
+}
+
+const john = new User('John', 22);
+john.age = 30;
+console.log(john.name);
+console.log(john.age);
+john.say();
+
+//с инкапсуляцией
+
+function User2 (name, age){
+    this.name = name;
+    let userAge = age;
+
+    this.say = function(){
+        console.log(`Имя пользователя: ${this.name}, возврат ${userAge}`);
+    };
+} 
+
+const ann = new User2('Ann', 22);
+
+//john2.age = 30; //возможно прямое обращение к свойству
+console.log(ann.name);
+console.log(ann.userAge); //уже не можем обтатиться к свойству
+ann.say();
+
+///////////////////////////////////////////
+
+function User3 (name, age){
+    this.name = name;
+    let userAge = age;
+
+    this.say = function(){
+        console.log(`Имя пользователя: ${this.name}, возраст ${userAge}`);
+    };
+
+    this.getAge = function(){
+        return userAge;
+    }
+    this.setAge = function(age){
+        if(typeof age === 'number' && age > 0 && age <100){
+            userAge = age;
+        }else{
+            console.log('недопустимое значение!')
+        }
+    }
+}
+
+const kirill = new User3('Kirill', 25);
+
+//kirill.age = 30; //возможно прямое обращение к свойству
+console.log(kirill.name);
+console.log(kirill.userAge);
+console.log(kirill.getAge());
+kirill.setAge(33);
+kirill.setAge(333);
+kirill.setAge('fwefwe');
+kirill.say();
+
+///////////////////////
+// инкапсуляция . класс
+
+class Author {
+    constructor(name, age){
+        this.name = name;
+        this._age = age; //инкапсуляция поля в классе (договоренность)
+    }
+
+    #surname = 'Maal'; //приватное поле
+
+    say = () => {
+        console.log(`Имя пользователя: ${this.name}, ${this.#surname} возврат ${this._age}`);
+    }
+
+    get age(){
+        return this._age;
+    }
+    set age(age){
+        if(typeof age === 'number' && age > 0 && age < 100){
+            this._age = age;
+        }else {
+            console.log('Недопустимое значение!')
+        }
+    }
+}
+
+const ivan = new Author('Ivan', 25);
+
+console.log(ivan.name);
+ivan.age = 99;
+console.log(ivan.age);
+
+ivan.say();
