@@ -1,29 +1,19 @@
-//Самовызывающиеся функция. Приемы, используемые в модулях
+//Fetch API
 
 "use strict";
 
-const num = 1;
+fetch('http://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log(json));
 
-//анонимная самовызывающаяся функция (создаем локальную область видимости)
-(function(){
-    let num = 2;
-    console.log(num);
-    console.log(num + 1);
 
-}());
-
-console.log(num);
-
-//обьектный интерфейс (второй способ модульности)
-const user = (function(){
-    const privat = function(){
-        console.log('I am privat');
-    };
-
-    return {
-        sayHello: privat //экспортируем наружу локальное свойство
-    }
-}());
-
-user.sayHello();
+  fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: "POST",
+      body: JSON.stringify({name: "Alex"}),
+      headers: {
+          'Content-type': 'application/json'
+      }
+  })
+  .then(response => response.json())
+  .then(json => console.log(json));
 
